@@ -1,10 +1,16 @@
 const express = require("express")
 const router = express.Router()
-// const userRouter = require("./user")
 const translate = require('../helpers/translate')
 const axios = require('axios')
+const Controller = require('../controllers/controller')
+const {authentication} = require('../middlewares/auth')
 
-router.post("/translate", function(req,res,next){
+router.post('/users/register', Controller.register)
+router.post('/users/login', Controller.login)
+router.post('/users/glogin', Controller.googleLogin)
+
+
+router.post("/translate", authentication, function(req,res,next){
     translate.translate(req.body.text, req.body.target)
     .then(translation=>{
         res.json(translation)
@@ -12,7 +18,7 @@ router.post("/translate", function(req,res,next){
     .catch(next)
 })
 
-router.get("/games/:title", function(req,res,next){
+router.get("/games/:title", authentication, function(req,res,next){
     let games = {}
     axios({
         method: "post",
@@ -30,7 +36,7 @@ router.get("/games/:title", function(req,res,next){
     .catch(next)
 })
 
-router.get("/cover/:id", function(req,res,next){
+router.get("/cover/:id", authentication, function(req,res,next){
     return axios({
         method: "post",
         url: `https://api-v3.igdb.com/covers`,
