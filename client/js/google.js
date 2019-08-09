@@ -9,6 +9,11 @@ function onSignIn(googleUser) {
     })
     .done(function(data){
         localStorage.setItem('token', data.token)
+        $('#searchForm').show()
+        $('#signinBtn').hide()
+        $('#signoutBtn').show()
+        $('#homepage').hide()
+        $('#navbar').show()
     })
     .fail(function(err){
         console.log(err)
@@ -16,10 +21,15 @@ function onSignIn(googleUser) {
 }
 function signOut() {
     var auth2 = gapi.auth2.getAuthInstance();
+    $('#searchForm').hide()
+    $('#list-anime').hide()
+    $('#list-card').hide()
     auth2.signOut().then(function () {
         console.log('User signed out.');
         localStorage.removeItem("token")
     }); 
+    $('#signinBtn').show()
+    $('#signoutBtn').hide()
    
 }
 

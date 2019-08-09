@@ -1,7 +1,12 @@
 $(document).ready(function(){
     getAnimeData()
-    getAnimeList()
-    
+    if(localStorage.getItem('token')){
+        $('#signinBtn').hide()
+        $('#signoutBtn').show()
+    } else {
+        $('#signinBtn').show()
+        $('#signoutBtn').hide()
+    }
 
 })
 let foundAnimes = []
@@ -59,11 +64,11 @@ function getDetails(id){
                 <button id="down" onclick="down()">
                     <i class="fa fa-sort-down"></i>
                 </button>
-                <button id="up" onclick="up()">
+                <button style="display:none" id="up" onclick="up()">
                     <i class="fa fa-sort-up"></i> 
                 </button>
                 </p>
-                <ul id="lang" class="list-group">
+                <ul style="display:none" id="lang" class="list-group">
                     <li onclick="translates('en')" id="en" class="list-group-item active">English</li>
                     <li onclick="translates('id')" id="id" class="list-group-item">Bahasa Indonesia</li>
                     <li onclick="translates('ja')" id="ja" class="list-group-item">日本語</li>
