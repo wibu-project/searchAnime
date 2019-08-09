@@ -154,7 +154,6 @@ function getAnimeData(){
         $('#mylist').hide()
         $('#submit').hide()
         $('#loading').show()
-        
         $.ajax({
             url: `https://kitsu.io/api/edge/anime?filter[text]=${$('#search-char').val()}`,
             method: 'GET'
