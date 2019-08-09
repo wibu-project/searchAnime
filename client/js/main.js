@@ -155,16 +155,20 @@ function getAnimeData(){
             method: 'GET'
         })
         .done(function(list){
+            $('#list-card').empty()
             foundAnimes = list.data
             for (let i = 0; i < list.data.length; i++) {
                 const datas = list.data[i];
                 $('#list-card').append(
-                    `<div class="card" style="width: 10rem;">
-                    <img src="${datas.attributes.posterImage.small}" class="card-img-top" alt="">
-                    <div class="card-body">
-                    <h5 class="card-title">${datas.attributes.canonicalTitle}</h5>
-                    <a onclick="getDetails('${datas.id}')"href="#" class="btn btn-primary">See Details</a>
-                    </div>
+                    `
+                    <div class="col-md-4 d-flex justify-content-center">
+                        <div class="card " style="width: 18rem;">
+                            <img src="${datas.attributes.posterImage.medium}" class="card-img-top" alt="">
+                            <div class="card-body">
+                                <h5 class="card-title d-flex justify-content-center" style="height: 5rem;">${datas.attributes.canonicalTitle}</h5>
+                                <a onclick="getDetails('${datas.id}')"href="#" class="btn btn-primary d-flex justify-content-center">See Details</a>
+                            </div>
+                        </div>
                     </div>
                     `
                 );
