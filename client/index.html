@@ -1,5 +1,6 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
+  
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,8 +11,29 @@
     <meta name="google-signin-client_id" content="667372250820-47smo3qhg3e5sem90mchv0gure7bbjsm.apps.googleusercontent.com">
     <script src="https://apis.google.com/js/platform.js" async defer></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
+  <header>
+      <div class="row">
+        <ul class="main-nav">
+          <li class="signin"><a href="">SIGN IN</a></li>
+          <li class="signup"><a href="">SIGN UP</a></li>
+        </ul>
+      </div>
+      <div class="loginbox">
+        <h1 class="log-in">Login Here</h1>
+        <form action="">
+          <p>Email</p>
+          <input type="text" name="email" placeholder="Enter Your Email">
+          <p>Password</p>
+          <input type="password" name="pass" placeholder="Enter Your Password">
+          <input type="submit" name="" value="Login">
+        </form>
+        <div class="g-signin2" data-onsuccess="onSignIn"></div>
+      </div>
+      
+    </header>
     <button id="list">My anime list</button>
     
     <div class="g-signin2" data-onsuccess="onSignIn"></div>
@@ -47,5 +69,5 @@
     <script src="./js/google.js"></script>
     <script src="./js/translate.js"></script>
     <script src="./js/list.js"></script>
-</body>
+  </body>
 </html>
