@@ -6,13 +6,19 @@ function translates(lang){
     $(`#ar`).removeClass("active")
     $(`#${lang}`).addClass("active")
     $(`.spinner-border`).show()
+
+    let token = localStorage.getItem('token')
+    console.log(token)
     $.ajax({
         method: "post",
         url: `http://localhost:3000/translate`,
         data: {
             text : currentSynopsis,
             target: lang
-        }
+        },
+        headers: {
+            token
+        }   
     })
     .then( data =>{        
         $(`.spinner-border`).hide()

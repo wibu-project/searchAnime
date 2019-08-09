@@ -12,11 +12,12 @@
 
 </head>
 <body>
-
+    <div class="g-signin2" data-onsuccess="onSignIn"></div>
+    <a href="#" onclick="signOut();">Sign out</a>
     <div id="details"></div>
     
 
-        <form id="">
+        <form id="searchForm">
             <input id="search-char" type="search" placeholder="Search">
             <button type="submit" value="Find it!" id="submit">FIND it!</button>
         </form>
@@ -31,6 +32,7 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
     <script src="./js/main.js"></script>
 
+    <script src="./js/google.js"></script>
     <script src="./js/translate.js"></script>
 
     
