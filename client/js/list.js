@@ -7,7 +7,11 @@ function getAnimeList(){
     $('#list-card').hide()
     $('#details').hide()
     $('#list-anime').empty()
+    $('#searchForm').show(  )
     let token = localStorage.getItem('token')
+    if(!token){
+        Swal.fire('Please Login First')
+    } else {
         $.ajax({
             method: "get",
             headers: {
@@ -37,6 +41,8 @@ function getAnimeList(){
         .catch(err=>{
             console.log(err)
         })
+
+    }
     
 }
 
@@ -45,24 +51,26 @@ function addToAnimeList(){
     let token = localStorage.getItem('token')
     if(!token){
         Swal.fire("Please Login First!")
+    } else {
+        $.ajax({
+            method: "post",
+            headers: {
+                token
+            },
+            url: `http://localhost:3000/animes`,
+            data:{
+                title: `${currentDetails.canonicalTitle}`,
+                poster: `${currentDetails.posterImage.medium}`
+            }
+        })
+        .then(response=>{
+            console.log(response)
+        })
+        .catch(err=>{
+            console.log(err)
+        })
+
     }
-    $.ajax({
-        method: "post",
-        headers: {
-            token
-        },
-        url: `http://localhost:3000/animes`,
-        data:{
-            title: `${currentDetails.canonicalTitle}`,
-            poster: `${currentDetails.posterImage.medium}`
-        }
-    })
-    .then(response=>{
-        console.log(response)
-    })
-    .catch(err=>{
-        console.log(err)
-    })
 }
 
 function deleteFromList(id){
