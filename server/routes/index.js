@@ -3,11 +3,16 @@ const router = express.Router()
 const translate = require('../helpers/translate')
 const axios = require('axios')
 const Controller = require('../controllers/controller')
+const AnimeController = require('../controllers/animeController')
 const {authentication} = require('../middlewares/auth')
 
 router.post('/users/register', Controller.register)
 router.post('/users/login', Controller.login)
 router.post('/users/glogin', Controller.googleLogin)
+
+router.post('/animes', AnimeController.create)
+router.get('/animes', AnimeController.findAll)
+router.delete('/animes/:id', AnimeController.delete)
 
 
 router.post("/translate", authentication, function(req,res,next){

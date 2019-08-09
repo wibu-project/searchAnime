@@ -1,6 +1,7 @@
 $(document).ready(function(){
-    up()
     getAnimeData()
+    getAnimeList()
+    
 
 })
 let foundAnimes = []
@@ -14,6 +15,7 @@ function back(){
     currentCovers = []
     $('#details').hide()
     $('#searchForm').show()
+    $('#list-card').show()
 }
 
 function getDetails(id){
@@ -42,8 +44,8 @@ function getDetails(id){
             <div class="col-md-6">
                 <img class="img-fluid" src="${currentDetails.posterImage.original}" alt="cover  ">
             </div>
-                
             <div class="col-md-5">
+            <button onclick="addToAnimeList()"type="button" class="btn btn-outline-danger">Add to My List</button>
                 <h3 class="my-3">Rating</h3>
                     <i class="fa fa-star"></i>${currentDetails.averageRating}
                 <h3 class="my-3">Synopsis</h3>
@@ -148,31 +150,45 @@ function getGames(){
 function getAnimeData(){
     foundAnimes = []
     $('#submit').click(function(){
-        event.preventDefault();
-        alert(`${$('#search-char').val()}`)
+        event.preventDefault()
+        $('#mylist').hide()
+        $('#submit').hide()
+        $('#loading').show()
+        
         $.ajax({
             url: `https://kitsu.io/api/edge/anime?filter[text]=${$('#search-char').val()}`,
             method: 'GET'
         })
         .done(function(list){
+            if(list.data.length == 0){
+                Swal.fire({
+                    type: 'error',
+                    title: 'Oops...',
+                    text: 'No Result(s) Found',
+                })
+            }
             $('#list-card').empty()
+            $('#list-card').show()
+
             foundAnimes = list.data
             for (let i = 0; i < list.data.length; i++) {
                 const datas = list.data[i];
                 $('#list-card').append(
                     `
                     <div class="col-md-4 d-flex justify-content-center">
-                        <div class="card " style="width: 18rem;">
-                            <img src="${datas.attributes.posterImage.medium}" class="card-img-top" alt="">
-                            <div class="card-body">
-                                <h5 class="card-title d-flex justify-content-center" style="height: 5rem;">${datas.attributes.canonicalTitle}</h5>
-                                <a onclick="getDetails('${datas.id}')"href="#" class="btn btn-primary d-flex justify-content-center">See Details</a>
-                            </div>
-                        </div>
+                    <div class="card " style="width: 18rem;">
+                    <img src="${datas.attributes.posterImage.medium}" class="card-img-top" alt="">
+                    <div class="card-body">
+                    <h5 class="card-title d-flex justify-content-center" style="height: 5rem;">${datas.attributes.canonicalTitle}</h5>
+                    <a onclick="getDetails('${datas.id}')"href="#" class="btn btn-primary d-flex justify-content-center">See Details</a>
+                    </div>
+                    </div>
                     </div>
                     `
-                );
+                    );
             }
+            $('#submit').show()
+            $('#loading').hide()
         })
         .fail(function(jqXHR, textStatus) {
             console.log('Error:', textStatus);
